@@ -3,21 +3,6 @@ import { CRSArchiveController, CRSDBController } from "./crs";
 import { Config, PackageManager, PrittContext, PrittLocalConfigUnawareController, PrittLocalController, Workspace } from "./handler";
 
 
-/**
- * Metadata about the Pritt 
- */
-interface PrittMetadata {
-    /** The id of the plugin */
-    id: string;
-    /** The name of the plugin */
-    name: string;
-    /** The description of the plugin */
-    description?: string;
-    /** The plugin's language */
-    language?: string;
-    /** The plugin's version. If not specified, deduced from the current (git) */
-    version?: string;
-}
 
 /**
  * A Pritt Adapter
@@ -76,8 +61,16 @@ interface PrittHandler {
  * 3. Run parts on plugin side
  */
 interface PrittPlugin {
-    /** The metadata of the plugin */
-    metadata: PrittMetadata;
+    /** The id of the plugin */
+    id: string;
+    /** The name of the plugin */
+    name: string;
+    /** The description of the plugin */
+    description?: string;
+    /** The plugin's language */
+    language?: string;
+    /** The plugin's version. If not specified, deduced from the current (git) */
+    version?: string;
     /** The adapter of the plugin */
     adapter: PrittAdapter;
     /** The handler of the plugin */

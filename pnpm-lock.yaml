@@ -6,7 +6,13 @@ settings:
 
 importers:
 
-  .:
+  examples/basic:
+    dependencies:
+      '@pritt/toolkit':
+        specifier: workspace:^
+        version: link:../../packages/toolkit
+
+  packages/toolkit:
     devDependencies:
       '@types/node':
         specifier: ^22.15.17
