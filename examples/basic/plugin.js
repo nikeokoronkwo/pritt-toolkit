@@ -1,10 +1,10 @@
-import { definePrittAdapter, definePrittPlugin } from "../../packages/toolkit/src";
+import { definePrittAdapter, definePrittPlugin } from "@pritt/toolkit";
 
 
 export default definePrittPlugin({
     name: '',
-    language: 'deno',
+    language: 'demo',
     adapter: definePrittAdapter({
-        
+
     })
 })

@@ -12,6 +12,12 @@ importers:
         specifier: workspace:^
         version: link:../../packages/toolkit
 
+  packages/common:
+    dependencies:
+      '@pritt/toolkit':
+        specifier: workspace:^
+        version: link:../toolkit
+
   packages/toolkit:
     devDependencies:
       '@types/node':

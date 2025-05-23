@@ -1,7 +1,5 @@
-import { AdapterResolve, AdapterResolveType, AdapterRequestObject, AdapterResult } from "./adapter";
-import { CRSArchiveController, CRSDBController } from "./crs";
-import { Config, PackageManager, PrittContext, PrittLocalConfigUnawareController, PrittLocalController, Workspace } from "./handler";
-
+import { PrittAdapterResolveFunc, PrittAdapterMetaRequestFunc, PrittAdapterArchiveRequestFunc } from "./types/adapter";
+import { Config, PackageManager, PrittContext, PrittLocalConfigUnawareController, PrittLocalController, Workspace } from "./types/handler";
 
 
 /**
@@ -11,13 +9,13 @@ import { Config, PackageManager, PrittContext, PrittLocalConfigUnawareController
  *   - onRequest
  *   - onResolve and onRetrieve
 */
-interface PrittAdapter {
+export interface PrittAdapter<T = any, U = any> {
     /**
      * The function called upon resolving of the adapter request.
      * @param res 
      * @returns 
      */
-    resolve: (res: AdapterResolve) => AdapterResolveType;
+    resolve: PrittAdapterResolveFunc;
 
     /**
      * The function called when a request is delegated to the given adapter.
@@ -25,7 +23,7 @@ interface PrittAdapter {
      * @param crs 
      * @returns 
      */
-    metaRequest: (req: AdapterRequestObject, crs: CRSDBController) => Promise<AdapterResult> | AdapterResult;
+    metaRequest: PrittAdapterMetaRequestFunc<T>;
 
     /**
      * Similar to {@link PrittAdapter.metaRequest}, but used for archive requests
@@ -33,13 +31,13 @@ interface PrittAdapter {
      * @param crs 
      * @returns 
      */
-    archiveRequest: (req: AdapterResolve, crs: CRSArchiveController) => Promise<AdapterResult> | AdapterResult;
+    archiveRequest: PrittAdapterArchiveRequestFunc<U>;
 }
 
 /**
  * A Pritt Handler for configuring workspace
  */
-interface PrittHandler {
+export interface PrittHandler {
     packageManager?: PackageManager;
 
     /**
