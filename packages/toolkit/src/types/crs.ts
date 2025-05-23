@@ -12,7 +12,7 @@ export interface CRSDBController extends CRSBaseController {
     options?: {
       language?: string;
       env?: Record<string, any>;
-    }
+    },
   ): Promise<CRSResponse<PackageVersions>>;
 
   /**
@@ -24,7 +24,7 @@ export interface CRSDBController extends CRSBaseController {
     options?: {
       language?: string;
       env?: Record<string, any>;
-    }
+    },
   ): Promise<CRSResponse<PackageVersions>>;
 
   /**
@@ -35,7 +35,7 @@ export interface CRSDBController extends CRSBaseController {
     options?: {
       language?: string;
       env?: Record<string, any>;
-    }
+    },
   ): Promise<CRSResponse<Map<string, PackageVersions>>>;
 
   /**
@@ -46,7 +46,7 @@ export interface CRSDBController extends CRSBaseController {
     options?: {
       language?: string;
       env?: Record<string, any>;
-    }
+    },
   ): Promise<CRSResponse<Package>>;
 
   /**
@@ -57,29 +57,32 @@ export interface CRSDBController extends CRSBaseController {
     options?: {
       language?: string;
       env?: Record<string, any>;
-    }
+    },
   ): Promise<CRSResponse<Map<User, Iterable<Privileges>>>>;
 }
 
 export interface CRSArchiveController extends CRSBaseController {
-    getArchiveWithVersion(packageName: string, version: string, language?: string) : Promise<CRSResponse<CRSArchive>>;
+  getArchiveWithVersion(
+    packageName: string,
+    version: string,
+    language?: string,
+  ): Promise<CRSResponse<CRSArchive>>;
 }
 
 export interface CRSController extends CRSDBController, CRSArchiveController {
-
 }
 
 export interface CRSArchive {
-    ref: string;
+  ref: string;
 }
 
 export type CRSResponse<T> = {
-    success: true;
-    body: T;
-    statusCode?: number;
+  success: true;
+  body: T;
+  statusCode?: number;
 } | {
-    success: false;
-    error: string;
-    statusCode?: number;
-    body?: T;
-}
+  success: false;
+  error: string;
+  statusCode?: number;
+  body?: T;
+};
