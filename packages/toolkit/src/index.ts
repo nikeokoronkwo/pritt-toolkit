@@ -89,7 +89,10 @@ interface PrittPlugin {
   version?: string;
   /** The adapter of the plugin */
   adapter: PrittAdapter;
-  /** The handler of the plugin */
+  /**
+   * The handler of the plugin
+   * @note This is experimental
+   */
   handler: PrittHandler;
 }
 
@@ -111,5 +114,4 @@ export function definePrittProjectHandler(handler: PrittHandler) {
   return handler;
 }
 
-interface PrittBuiltAdapter {
-}
+// interface PrittBuiltAdapter {}

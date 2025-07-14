@@ -5,3 +5,7 @@ private
 deno.lock
 
 .DS_Store
+
+dist
+types
+!src/types

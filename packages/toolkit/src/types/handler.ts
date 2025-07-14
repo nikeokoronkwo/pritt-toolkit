@@ -1,5 +1,4 @@
-export interface PackageManager {
-}
+export interface PackageManager {}
 
 export interface PrittLocalController {
   getConfiguration<T extends Config>(): T;
@@ -10,11 +9,8 @@ export type PrittLocalConfigUnawareController = Omit<
   "getConfiguration"
 >;
 
-export interface PrittContext {
-}
+export interface PrittContext {}
 
-export interface Config {
-}
+export interface Config {}
 
-export interface Workspace {
-}
+export interface Workspace {}

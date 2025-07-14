@@ -1,7 +1,6 @@
-import { Package, PackageVersions, Privileges, User } from "./common.ts";
+import { Package, PackageVersions, Privileges, User } from "./common";
 
-interface CRSBaseController {
-}
+interface CRSBaseController {}
 
 export interface CRSDBController extends CRSBaseController {
   /**
@@ -58,7 +57,14 @@ export interface CRSDBController extends CRSBaseController {
       language?: string;
       env?: Record<string, any>;
     },
-  ): Promise<CRSResponse<Map<User, Iterable<Privileges>>>>;
+  ): Promise<
+    CRSResponse<
+      {
+        user: User;
+        privileges: Privileges[];
+      }[]
+    >
+  >;
 }
 
 export interface CRSArchiveController extends CRSBaseController {
@@ -69,20 +75,21 @@ export interface CRSArchiveController extends CRSBaseController {
   ): Promise<CRSResponse<CRSArchive>>;
 }
 
-export interface CRSController extends CRSDBController, CRSArchiveController {
-}
+export interface CRSController extends CRSDBController, CRSArchiveController {}
 
 export interface CRSArchive {
   ref: string;
 }
 
-export type CRSResponse<T> = {
-  success: true;
-  body: T;
-  statusCode?: number;
-} | {
-  success: false;
-  error: string;
-  statusCode?: number;
-  body?: T;
-};
+export type CRSResponse<T> =
+  | {
+      success: true;
+      body: T;
+      statusCode?: number;
+    }
+  | {
+      success: false;
+      error: string;
+      statusCode?: number;
+      body?: T;
+    };

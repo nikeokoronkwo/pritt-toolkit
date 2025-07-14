@@ -1,0 +1,12 @@
+{
+  "name": "pritt-toolkit-workspace",
+  "private": true,
+  "scripts": {
+    "format": "pnpm exec prettier . --write",
+    "types": "tsc --build tsconfig.build.json"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "typescript": "^5.8.3"
+  }
+}

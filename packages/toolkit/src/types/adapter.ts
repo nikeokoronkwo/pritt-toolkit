@@ -1,8 +1,11 @@
-import { CRSArchive, CRSArchiveController, CRSDBController } from "./crs.ts";
+import { CRSArchive, CRSArchiveController, CRSDBController } from "./crs";
 /**
  * Necessary information about the incoming request needed to be able
  */
-export interface AdapterResolve {
+export interface AdapterRequestObject {
+  resolveObject: AdapterResolveObject;
+  env: Record<string, any>;
+  resolveType: AdapterResolveType;
 }
 
 export enum AdapterResolveType {
@@ -12,7 +15,7 @@ export enum AdapterResolveType {
 }
 
 /** */
-export interface AdapterRequestObject {
+export interface AdapterResolveObject {
   path: string;
   pathSegments: string[];
   url: string;
@@ -23,6 +26,7 @@ export interface AdapterRequestObject {
   userAgent: string;
 
   get meta(): Record<string, any>;
+  /** @fixme unimplemented */
   addMeta(key: string, value: any): void;
 }
 
@@ -36,21 +40,23 @@ export interface AdapterMetaResult<T> extends AdapterResult {
 }
 
 export interface AdapterArchiveResult extends AdapterResult {
-  archive: CRSArchive;
+  target: string;
+  archive?: CRSArchive;
   name: string;
   contentType: string;
 }
 
 export interface AdapterErrorResult<T> extends AdapterResult {
-  error: T;
-  status: number;
+  error?: T;
+  message: string;
+  statusCode: number;
 }
 
 export type PrittAdapterResolveFunc = (
-  res: AdapterResolve,
+  res: AdapterResolveObject,
 ) => Promise<AdapterResolveType> | AdapterResolveType;
 
-export type PrittAdapterMetaRequestFunc<T> = (
+export type PrittAdapterMetaRequestFunc<T = any> = (
   req: AdapterRequestObject,
   crs: CRSDBController,
 ) =>
@@ -58,8 +64,8 @@ export type PrittAdapterMetaRequestFunc<T> = (
   | AdapterMetaResult<T>
   | AdapterErrorResult<T>;
 
-export type PrittAdapterArchiveRequestFunc<T> = (
-  req: AdapterResolve,
+export type PrittAdapterArchiveRequestFunc<T = any> = (
+  req: AdapterRequestObject,
   crs: CRSArchiveController,
 ) =>
   | Promise<AdapterArchiveResult | AdapterErrorResult<T>>
